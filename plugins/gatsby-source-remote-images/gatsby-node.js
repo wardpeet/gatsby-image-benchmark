@@ -21,21 +21,20 @@ exports.sourceNodes = ({ actions, createNodeId, store, cache }) =>
           createNode: actions.createNode,
           createNodeId,
         })
+        const node = {
+          id: nodeId,
+          remoteUrl: url,
+          internal: { type: `RemoteImage`, contentDigest: url },
+        }
+
+        if (fileNode) {
+          node.file___NODE = fileNode.id
+        }
+
+        actions.createNode(node)
       } catch (e) {
         console.log(e)
         // Ignore
       }
-
-      const node = {
-        id: nodeId,
-        remoteUrl: url,
-        internal: { type: `RemoteImage`, contentDigest: url },
-      }
-
-      if (fileNode) {
-        node.file___NODE = fileNode.id
-      }
-
-      actions.createNode(node)
     })
   )
