@@ -5,7 +5,7 @@ const NUM_IMAGES = parseInt(process.env.NUM_IMAGES || 100, 10)
 
 const urls = JSON.parse(
   fs.readFileSync(`${__dirname}/urls.json`, `utf-8`)
-).slice(0, NUM_IMAGES)
+).slice(0, Math.min(NUM_IMAGES, 1300))
 
 exports.sourceNodes = ({ actions, createNodeId, store, cache }) =>
   Promise.all(
